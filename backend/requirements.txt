@@ -1,0 +1,3 @@
+# Core
+fastapi
+uvicorn[standard]
