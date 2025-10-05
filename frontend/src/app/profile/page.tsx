@@ -75,7 +75,8 @@ export default function Profile() {
 
     return (
         <>
-            <main className="flex flex-col p-5">
+            <main className="flex flex-row p-5">
+              <div className="w-1/3 p-10 border-r">
                 <h1 className="text-4xl font-bold">Profile</h1>
                 <div className="mt-5">
                     <p className="text-lg mt-5 mb-2">Name</p>
@@ -131,6 +132,19 @@ export default function Profile() {
                       </form>
                     </Form>
                 </div>
+              </div>
+              <div className="w-1/3 p-10">
+                <h1 className="text-4xl font-bold">Profile</h1>
+                <p className="text-lg">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+              </div>
+              <div className="w-1/3 p-10 border-l">
+                <h1 className="text-4xl font-bold">Profile</h1>
+                <p className="text-lg">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+              </div>
             </main>
         </>
     );
