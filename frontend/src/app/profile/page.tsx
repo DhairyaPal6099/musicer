@@ -32,6 +32,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { GenreBadge } from "@/components/ui/genrebadge"
+import ArtistSelector from "@/components/ui/artistselector"
 
 const instruments = [
   {
@@ -110,6 +111,7 @@ const FormSchema = z.object({
     message: "You have to select at least one instrument.",
   }),
   genres: z.array(z.string()).max(10, "You can select up to 10 genres."),
+  artists: z.array(z.object({ id : z.string(), name : z.string() })).max(10, "You can select up to 10 artists"),
 })
 
 export default function Profile() {
@@ -118,6 +120,7 @@ export default function Profile() {
         defaultValues: {
           instruments: [], // Fetched from database
           genres: [], // Fetched from database
+          artists: [], // Fetched from database
         },
       })
     const [open, setOpen] = useState(false)
@@ -203,7 +206,6 @@ export default function Profile() {
                         </FormItem>
                       )}
                     />
-                    {/* TODO: Add artists as part of the form */}
 
                     <FormField
                       control={form.control}
@@ -278,16 +280,46 @@ export default function Profile() {
                       )}
                     />
 
-                    {/*ARTISTS*/}
+                    <FormField
+                      control={form.control}
+                      name="artists"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-lg mt-5 mb-2">Artists</FormLabel>
+                          <ArtistSelector
+                            onSelect={(artist) => {
+                              // Prevent duplicates and max 10
+                              if (!field.value.some((a) => a.id === artist.id)) {
+                                if (field.value.length < 10) {
+                                  field.onChange([...field.value, artist])
+                                } else {
+                                  alert("You can only select up to 10 artists.")
+                                }
+                              }
+                            }}
+                          />                          
 
-                    
+                          <div className="flex flex-wrap gap-2">
+                            {field.value.map((artist) => (
+                              <GenreBadge
+                                key={artist.id}
+                                label={artist.name}
+                                onRemove={() => {
+                                  field.onChange(field.value.filter((a) => a.id !== artist.id))
+                                }}
+                              />
+                            ))}
+                          </div>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                      />
+
+
                     <Button type="submit">Submit</Button>
                   </form>
-                </Form>
-                
-
-                <p className="text-lg mt-5 mb-2">Artists</p>
-                
+                </Form>                
               </div>
             </main>
         </>

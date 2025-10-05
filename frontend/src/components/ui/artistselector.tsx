@@ -7,10 +7,11 @@ import {
   CommandEmpty,
 } from "@/components/ui/command"
 import { Loader2 } from "lucide-react"
-import localArtists from "@/data/localArtists.json"
+import localArtistsJson from "@/data/localArtists.json"
 
-type Artist = {
-  id: number
+// Fix: IDs are strings (MusicBrainz IDs are UUIDs)
+export type Artist = {
+  id: string
   name: string
 }
 
@@ -24,6 +25,9 @@ export default function ArtistSelector({ onSelect }: ArtistSelectorProps) {
   const [loading, setLoading] = useState(false)
   const cache = useRef<Map<string, Artist[]>>(new Map())
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Local artists typed correctly
+  const localArtists: Artist[] = localArtistsJson as Artist[]
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
@@ -44,7 +48,7 @@ export default function ArtistSelector({ onSelect }: ArtistSelectorProps) {
     }
 
     // 1️⃣ Check local matches
-    const localMatches = localArtists.filter((a: Artist) =>
+    const localMatches = localArtists.filter((a) =>
       a.name.toLowerCase().includes(q.toLowerCase())
     )
 
@@ -68,7 +72,7 @@ export default function ArtistSelector({ onSelect }: ArtistSelectorProps) {
       const data = await res.json()
       const apiResults: Artist[] =
         data.artists?.slice(0, 10).map((a: any) => ({
-          id: a.id,
+          id: a.id, // Keep as string
           name: a.name,
         })) || []
 
@@ -107,7 +111,7 @@ export default function ArtistSelector({ onSelect }: ArtistSelectorProps) {
                 key={artist.id}
                 onSelect={() => {
                   onSelect(artist)
-                  setQuery("") // reset input after selection
+                  setQuery("") // reset input safely
                   setResults([])
                 }}
               >
