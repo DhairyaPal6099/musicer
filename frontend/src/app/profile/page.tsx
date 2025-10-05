@@ -233,13 +233,15 @@ export default function Profile() {
                               onSelect={(currentValue) => {
                                 setValue(currentValue === value ? "" : currentValue)
                                 setOpen(false)
+                                { selectedGenres.includes(currentValue) ? selectedGenres = selectedGenres.filter((genre) => genre !== currentValue) : selectedGenres.push(currentValue); }
+                                {console.log(selectedGenres);}
                               }}
                             >
                               {genre.label}
                               <Check
                                 className={cn(
                                   "ml-auto",
-                                  value === genre.value ? "opacity-100" : "opacity-0"
+                                  selectedGenres.includes(genre.value) ? "opacity-100" : "opacity-0"
                                 )}
                               />
                             </CommandItem>
