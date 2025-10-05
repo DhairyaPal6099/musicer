@@ -51,7 +51,7 @@ const instruments = [
 
 export default function Profile() {
     const [open, setOpen] = useState(false)
-    const [instrument, setInstrument] = useState("Select instrument...")
+    const [instrument, setInstrument] = useState("Add instrument...")
 
     return (
         <>
