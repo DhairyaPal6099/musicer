@@ -105,24 +105,23 @@ const genres = [
   { value: "boogie-woogie", label: "Boogie Woogie" },
 ];
 
-let selectedGenres: string[] = [];
-
 const FormSchema = z.object({
   instruments: z.array(z.string()).refine((value) => value.some((instrument) => instrument), {
     message: "You have to select at least one instrument.",
   }),
+  genres: z.array(z.string()).max(10, "You can select up to 10 genres."),
 })
 
 export default function Profile() {
-    const [open, setOpen] = useState(false)
-    const [value, setValue] = useState("")
-    const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
-      defaultValues: {
-        instruments: [], // Fetched from database
-      },
-    })
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+          instruments: [], // Fetched from database
+          genres: [], // Fetched from database
+        },
+      })
+    const [open, setOpen] = useState(false)
+    
     function onSubmit(data: z.infer<typeof FormSchema>) {
       toast("You submitted the following values", {
         description: (
@@ -159,7 +158,6 @@ export default function Profile() {
               {/* MUSIC STUFF */}
               <div className="w-1/3 p-10 border-l">
                 <h1 className="text-4xl font-bold">Music stuff</h1>
-                <p className="text-lg mt-5 mb-2">Instruments</p>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
@@ -167,6 +165,7 @@ export default function Profile() {
                       name="instruments"
                       render={() => (
                         <FormItem>
+                          <FormLabel className="text-lg mt-5 mb-2">Instruments</FormLabel>
                           {instruments.map((instrument) => (
                             <FormField
                               key={instrument.id}
@@ -205,67 +204,86 @@ export default function Profile() {
                       )}
                     />
                     {/* TODO: Add genres and instruments as part of the form */}
+
+                    <FormField
+                      control={form.control}
+                      name="genres"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-lg mt-5 mb-2">Genres</FormLabel>
+                          <Popover open={open} onOpenChange={setOpen}>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={open}
+                                className="w-[200px] justify-between"
+                              >
+                                {"Add/Remove Genre..."}
+                                <ChevronsUpDown className="opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                              <Command>
+                                <CommandInput placeholder="Search genre..." className="h-9" />
+                                <CommandList>
+                                  <CommandEmpty>No genre found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {genres.map((genre) => (
+                                      <CommandItem
+                                        key={genre.value}
+                                        value={genre.value}
+                                        onSelect={(currentValue) => {
+                                          setOpen(false)
+                                          if (field.value.includes(currentValue)) {
+                                            field.onChange(field.value.filter((g) => g !== currentValue))
+                                          } else if (field.value.length < 10) {
+                                            field.onChange([...field.value, currentValue])
+                                          } else {
+                                            alert("You can only select up to 10 genres")
+                                          }
+                                        }}
+                                      >
+                                        {genre.label}
+                                        <Check
+                                          className={cn(
+                                            "ml-auto",
+                                            field.value.includes(genre.value) ? "opacity-100" : "opacity-0"
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                          
+                          <div className="flex flex-wrap gap-2">
+                            {field.value.map((value) => {
+                              const genre = genres.find((g) => g.value === value);
+                              return (
+                                <GenreBadge
+                                  key={value}
+                                  label={genre?.label || value}
+                                  onRemove={() => {
+                                    field.onChange(field.value.filter((g) => g !== value));
+                                    }
+                                  }
+                                />
+                              );
+                            })}
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit">Submit</Button>
                   </form>
                 </Form>
-                <p className="text-lg mt-5 mb-2">Genres</p>
-                <Popover open={open} onOpenChange={setOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={open}
-                      className="w-[200px] justify-between"
-                    >
-                      {"Add/Remove Genre..."}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search genre..." className="h-9" />
-                      <CommandList>
-                        <CommandEmpty>No genre found.</CommandEmpty>
-                        <CommandGroup>
-                          {genres.map((genre) => (
-                            <CommandItem
-                              key={genre.value}
-                              value={genre.value}
-                              onSelect={(currentValue) => {
-                                setValue(currentValue === value ? "" : currentValue)
-                                setOpen(false)
-                                { selectedGenres.includes(currentValue) ? setSelectedGenres(selectedGenres.filter((genre) => genre !== currentValue)) : (selectedGenres.length !== 10 ? setSelectedGenres([...selectedGenres, currentValue]) : alert("You can only select upto 10 genres")); }
-                              }}
-                            >
-                              {genre.label}
-                              <Check
-                                className={cn(
-                                  "ml-auto",
-                                  selectedGenres.includes(genre.value) ? "opacity-100" : "opacity-0"
-                                )}
-                              />
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
                 
-                <div className="flex flex-wrap gap-2">
-                  {selectedGenres.map((value) => {
-                    const genre = genres.find((g) => g.value === value);
-                    return (
-                      <GenreBadge
-                        key={value}
-                        label={genre?.label || value}
-                        onRemove={() => setSelectedGenres(selectedGenres.filter((genre) => genre !== value))}
-                      />
-                    );
-                  })}
-                </div>
 
                 <p className="text-lg mt-5 mb-2">Artists</p>
-                <Button type="submit">Submit</Button>
+                
               </div>
             </main>
         </>
