@@ -52,56 +52,56 @@ const instruments = [
 ]
 
 const genres = [
-  { id: "rock", label: "Rock" },
-  { id: "pop", label: "Pop" },
-  { id: "blues", label: "Blues" },
-  { id: "jazz", label: "Jazz" },
-  { id: "country", label: "Country" },
-  { id: "indie-rock", label: "Indie Rock" },
-  { id: "alternative-rock", label: "Alternative Rock" },
-  { id: "punk", label: "Punk" },
-  { id: "metal", label: "Metal" },
-  { id: "folk", label: "Folk" },
-  { id: "funk", label: "Funk" },
-  { id: "surf-rock", label: "Surf Rock" },
-  { id: "psychedelic-rock", label: "Psychedelic Rock" },
-  { id: "hard-rock", label: "Hard Rock" },
-  { id: "progressive-rock", label: "Progressive Rock" },
-  { id: "grunge", label: "Grunge" },
-  { id: "southern-rock", label: "Southern Rock" },
-  { id: "ska", label: "Ska" },
-  { id: "reggae", label: "Reggae" },
-  { id: "flamenco", label: "Flamenco" },
-  { id: "bluegrass", label: "Bluegrass" },
-  { id: "hip-hop", label: "Hip-Hop" },
-  { id: "edm", label: "EDM" },
-  { id: "rnb", label: "R&B" },
-  { id: "soul", label: "Soul" },
-  { id: "gospel", label: "Gospel" },
-  { id: "latin", label: "Latin" },
-  { id: "afrobeat", label: "Afrobeat" },
-  { id: "reggaeton", label: "Reggaeton" },
-  { id: "trap", label: "Trap" },
-  { id: "drum-and-bass", label: "Drum & Bass" },
-  { id: "techno", label: "Techno" },
-  { id: "classical", label: "Classical" },
-  { id: "ballads", label: "Ballads" },
-  { id: "singer-songwriter", label: "Singer-Songwriter" },
-  { id: "musical-theatre", label: "Musical Theatre" },
-  { id: "ambient", label: "Ambient" },
-  { id: "new-age", label: "New Age" },
-  { id: "post-rock", label: "Post-Rock" },
-  { id: "garage-rock", label: "Garage Rock" },
-  { id: "lo-fi", label: "Lo-fi" },
-  { id: "shoegaze", label: "Shoegaze" },
-  { id: "emo", label: "Emo" },
-  { id: "math-rock", label: "Math Rock" },
-  { id: "industrial", label: "Industrial" },
-  { id: "j-pop", label: "J-Pop" },
-  { id: "k-pop", label: "K-Pop" },
-  { id: "bossa-nova", label: "Bossa Nova" },
-  { id: "swing", label: "Swing" },
-  { id: "boogie-woogie", label: "Boogie Woogie" },
+  { value: "rock", label: "Rock" },
+  { value: "pop", label: "Pop" },
+  { value: "blues", label: "Blues" },
+  { value: "jazz", label: "Jazz" },
+  { value: "country", label: "Country" },
+  { value: "indie-rock", label: "Indie Rock" },
+  { value: "alternative-rock", label: "Alternative Rock" },
+  { value: "punk", label: "Punk" },
+  { value: "metal", label: "Metal" },
+  { value: "folk", label: "Folk" },
+  { value: "funk", label: "Funk" },
+  { value: "surf-rock", label: "Surf Rock" },
+  { value: "psychedelic-rock", label: "Psychedelic Rock" },
+  { value: "hard-rock", label: "Hard Rock" },
+  { value: "progressive-rock", label: "Progressive Rock" },
+  { value: "grunge", label: "Grunge" },
+  { value: "southern-rock", label: "Southern Rock" },
+  { value: "ska", label: "Ska" },
+  { value: "reggae", label: "Reggae" },
+  { value: "flamenco", label: "Flamenco" },
+  { value: "bluegrass", label: "Bluegrass" },
+  { value: "hip-hop", label: "Hip-Hop" },
+  { value: "edm", label: "EDM" },
+  { value: "rnb", label: "R&B" },
+  { value: "soul", label: "Soul" },
+  { value: "gospel", label: "Gospel" },
+  { value: "latin", label: "Latin" },
+  { value: "afrobeat", label: "Afrobeat" },
+  { value: "reggaeton", label: "Reggaeton" },
+  { value: "trap", label: "Trap" },
+  { value: "drum-and-bass", label: "Drum & Bass" },
+  { value: "techno", label: "Techno" },
+  { value: "classical", label: "Classical" },
+  { value: "ballads", label: "Ballads" },
+  { value: "singer-songwriter", label: "Singer-Songwriter" },
+  { value: "musical-theatre", label: "Musical Theatre" },
+  { value: "ambient", label: "Ambient" },
+  { value: "new-age", label: "New Age" },
+  { value: "post-rock", label: "Post-Rock" },
+  { value: "garage-rock", label: "Garage Rock" },
+  { value: "lo-fi", label: "Lo-fi" },
+  { value: "shoegaze", label: "Shoegaze" },
+  { value: "emo", label: "Emo" },
+  { value: "math-rock", label: "Math Rock" },
+  { value: "industrial", label: "Industrial" },
+  { value: "j-pop", label: "J-Pop" },
+  { value: "k-pop", label: "K-Pop" },
+  { value: "bossa-nova", label: "Bossa Nova" },
+  { value: "swing", label: "Swing" },
+  { value: "boogie-woogie", label: "Boogie Woogie" },
 ];
 
 const FormSchema = z.object({
@@ -111,6 +111,8 @@ const FormSchema = z.object({
 })
 
 export default function Profile() {
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState("")
     const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
       defaultValues: {
@@ -130,6 +132,7 @@ export default function Profile() {
     return (
         <>
             <main className="flex flex-row p-5">
+              {/* PROFILE */}
               <div className="w-1/3 p-10 border-r">
                 <h1 className="text-4xl font-bold">Profile</h1>
                 <div className="mt-5">
@@ -140,12 +143,16 @@ export default function Profile() {
                     
                 </div>
               </div>
+
+              {/* AESTHETICS */}
               <div className="w-1/3 p-10">
                 <h1 className="text-4xl font-bold">Aesthetics</h1>
                 <p className="text-lg">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
               </div>
+
+              {/* MUSIC STUFF */}
               <div className="w-1/3 p-10 border-l">
                 <h1 className="text-4xl font-bold">Music stuff</h1>
                 <p className="text-lg mt-5 mb-2">Instruments</p>
@@ -196,6 +203,49 @@ export default function Profile() {
                   </form>
                 </Form>
                 <p className="text-lg mt-5 mb-2">Genres</p>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={open}
+                      className="w-[200px] justify-between"
+                    >
+                      {value
+                        ? genres.find((genre) => genre.value === value)?.label
+                        : "Select genre..."}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandInput placeholder="Search genre..." className="h-9" />
+                      <CommandList>
+                        <CommandEmpty>No genre found.</CommandEmpty>
+                        <CommandGroup>
+                          {genres.map((genre) => (
+                            <CommandItem
+                              key={genre.value}
+                              value={genre.value}
+                              onSelect={(currentValue) => {
+                                setValue(currentValue === value ? "" : currentValue)
+                                setOpen(false)
+                              }}
+                            >
+                              {genre.label}
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  value === genre.value ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 <p className="text-lg mt-5 mb-2">Artists</p>
                 <Button type="submit">Submit</Button>
               </div>
