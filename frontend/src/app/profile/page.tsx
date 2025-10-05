@@ -1,57 +1,42 @@
 "use client"
 
 import { useState } from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+
 
 const instruments = [
   {
-    value: "guitar",
+    value: "Guitar",
     label: "Guitar",
   },
   {
-    value: "piano",
+    value: "Piano",
     label: "Piano",
   },
   {
-    value: "drums",
+    value: "Drums",
     label: "Drums",
   },
   {
-    value: "bass",
+    value: "Bass",
     label: "Bass",
   },
   {
-    value: "flute",
+    value: "Flute",
     label: "Flute",
   },
   {
-    value: "violin",
+    value: "Violin",
     label: "Violin",
   },
   {
-    value: "saxophone",
+    value: "Saxophone",
     label: "Saxophone",
   },
 ]
 
+let selectedInstruments: string[] = [] // Fetched from database
+
 export default function Profile() {
-    const [open, setOpen] = useState(false)
-    const [instrument, setInstrument] = useState("Add instrument...")
 
     return (
         <>
@@ -63,49 +48,12 @@ export default function Profile() {
                     <p className="text-lg mt-5 mb-2">Email</p>
                     <input type="email" className="border p-2 rounded" defaultValue="johndoe@gmail.com" />
                     <p className="text-lg mt-5 mb-2">Instruments</p>
-                    <Popover open={open} onOpenChange={setOpen}>
-                        <PopoverTrigger asChild>
-                            <Button
-                            variant="outline"
-                            role="combobox"
-                            aria-expanded={open}
-                            className="w-[200px] justify-between"
-                            >
-                            {instrument
-                                ? instruments.find((ins) => ins.value === instrument)?.label
-                                : "Select instrument..."}
-                            <ChevronsUpDown className="opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                            <Command>
-                            <CommandInput placeholder="Search instrument..." className="h-9" />
-                            <CommandList>
-                                <CommandEmpty>No instrument found.</CommandEmpty>
-                                <CommandGroup>
-                                {instruments.map((ins) => (
-                                    <CommandItem
-                                    key={ins.value}
-                                    value={ins.value}
-                                    onSelect={(currentValue) => {
-                                        setInstrument(currentValue === instrument ? "" : currentValue)
-                                        setOpen(false)
-                                    }}
-                                    >
-                                    {ins.label}
-                                    <Check
-                                        className={cn(
-                                        "ml-auto",
-                                        instrument === ins.value ? "opacity-100" : "opacity-0"
-                                        )}
-                                    />
-                                    </CommandItem>
-                                ))}
-                                </CommandGroup>
-                            </CommandList>
-                            </Command>
-                        </PopoverContent>
-                    </Popover>
+                    
+                    <ul>
+                      {selectedInstruments.map((ins) => (
+                        <li key={ins} className="mt-2">{ins}</li>
+                      ))}
+                    </ul>
                 </div>
             </main>
         </>
