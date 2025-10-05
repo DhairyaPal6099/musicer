@@ -31,6 +31,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { GenreBadge } from "@/components/ui/genrebadge"
 
 const instruments = [
   {
@@ -115,6 +116,7 @@ const FormSchema = z.object({
 export default function Profile() {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
+    const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
       defaultValues: {
@@ -231,8 +233,7 @@ export default function Profile() {
                               onSelect={(currentValue) => {
                                 setValue(currentValue === value ? "" : currentValue)
                                 setOpen(false)
-                                { selectedGenres.includes(currentValue) ? selectedGenres = selectedGenres.filter((genre) => genre !== currentValue) : (selectedGenres.length !== 10 ? selectedGenres.push(currentValue) : alert("You can only select upto 10 genres")); }
-                                {console.log(selectedGenres);}
+                                { selectedGenres.includes(currentValue) ? setSelectedGenres(selectedGenres.filter((genre) => genre !== currentValue)) : (selectedGenres.length !== 10 ? setSelectedGenres([...selectedGenres, currentValue]) : alert("You can only select upto 10 genres")); }
                               }}
                             >
                               {genre.label}
@@ -249,6 +250,20 @@ export default function Profile() {
                     </Command>
                   </PopoverContent>
                 </Popover>
+                
+                <div className="flex flex-wrap gap-2">
+                  {selectedGenres.map((value) => {
+                    const genre = genres.find((g) => g.value === value);
+                    return (
+                      <GenreBadge
+                        key={value}
+                        label={genre?.label || value}
+                        onRemove={() => setSelectedGenres(selectedGenres.filter((genre) => genre !== value))}
+                      />
+                    );
+                  })}
+                </div>
+
                 <p className="text-lg mt-5 mb-2">Artists</p>
                 <Button type="submit">Submit</Button>
               </div>

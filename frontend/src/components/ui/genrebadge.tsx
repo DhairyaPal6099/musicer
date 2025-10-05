@@ -8,7 +8,7 @@ type GenreBadgeProps = {
 
 export function GenreBadge({ label, onRemove }: GenreBadgeProps) {
   return (
-    <Badge className="flex items-center gap-1 px-2 py-1">
+    <Badge className="flex items-center gap-1 px-2 py-1 mt-2">
       {label}
       <button
         type="button"
