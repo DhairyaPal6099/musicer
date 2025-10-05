@@ -127,9 +127,11 @@ export default function Profile() {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit">Submit</Button>
                   </form>
                 </Form>
+                <p className="text-lg mt-5 mb-2">Genres</p>
+                <p className="text-lg mt-5 mb-2">Artists</p>
+                <Button type="submit">Submit</Button>
               </div>
             </main>
         </>
