@@ -34,18 +34,6 @@ const instruments = [
     id: "bass",
     label: "Bass",
   },
-  {
-    id: "flute",
-    label: "Flute",
-  },
-  {
-    id: "violin",
-    label: "Violin",
-  },
-  {
-    id: "saxophone",
-    label: "Saxophone",
-  },
 ]
 
 const FormSchema = z.object({
@@ -83,67 +71,65 @@ export default function Profile() {
                     <input type="text" className="border p-2 rounded" defaultValue="JohnDoe" />
                     <p className="text-lg mt-5 mb-2">Email</p>
                     <input type="email" className="border p-2 rounded" defaultValue="johndoe@gmail.com" />
-                    <p className="text-lg mt-5 mb-2">Instruments</p>
-                    <Form {...form}>
-                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                        <FormField
-                          control={form.control}
-                          name="instruments"
-                          render={() => (
-                            <FormItem>
-                              {instruments.map((instrument) => (
-                                <FormField
-                                  key={instrument.id}
-                                  control={form.control}
-                                  name="instruments"
-                                  render={({ field }) => {
-                                    return (
-                                      <FormItem
-                                        key={instrument.id}
-                                        className="flex flex-row items-center gap-2"
-                                      >
-                                        <FormControl>
-                                          <Checkbox
-                                            checked={field.value?.includes(instrument.id)}
-                                            onCheckedChange={(checked) => {
-                                              return checked
-                                                ? field.onChange([...field.value, instrument.id])
-                                                : field.onChange(
-                                                    field.value?.filter(
-                                                      (value) => value !== instrument.id
-                                                    )
-                                                  )
-                                            }}
-                                          />
-                                        </FormControl>
-                                        <FormLabel className="text-sm font-normal">
-                                          {instrument.label}
-                                        </FormLabel>
-                                      </FormItem>
-                                    )
-                                  }}
-                                />
-                              ))}
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <Button type="submit">Submit</Button>
-                      </form>
-                    </Form>
+                    
                 </div>
               </div>
               <div className="w-1/3 p-10">
-                <h1 className="text-4xl font-bold">Profile</h1>
+                <h1 className="text-4xl font-bold">Aesthetics</h1>
                 <p className="text-lg">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
               </div>
               <div className="w-1/3 p-10 border-l">
-                <h1 className="text-4xl font-bold">Profile</h1>
-                <p className="text-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+                <h1 className="text-4xl font-bold">Music stuff</h1>
+                <p className="text-lg mt-5 mb-2">Instruments</p>
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <FormField
+                      control={form.control}
+                      name="instruments"
+                      render={() => (
+                        <FormItem>
+                          {instruments.map((instrument) => (
+                            <FormField
+                              key={instrument.id}
+                              control={form.control}
+                              name="instruments"
+                              render={({ field }) => {
+                                return (
+                                  <FormItem
+                                    key={instrument.id}
+                                    className="flex flex-row items-center gap-2"
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(instrument.id)}
+                                        onCheckedChange={(checked) => {
+                                          return checked
+                                            ? field.onChange([...field.value, instrument.id])
+                                            : field.onChange(
+                                                field.value?.filter(
+                                                  (value) => value !== instrument.id
+                                                )
+                                              )
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className="text-sm font-normal">
+                                      {instrument.label}
+                                    </FormLabel>
+                                  </FormItem>
+                                )
+                              }}
+                            />
+                          ))}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit">Submit</Button>
+                  </form>
+                </Form>
               </div>
             </main>
         </>
