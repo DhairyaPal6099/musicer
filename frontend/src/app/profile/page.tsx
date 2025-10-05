@@ -36,13 +36,64 @@ const instruments = [
   },
 ]
 
+const genres = [
+  { id: "rock", label: "Rock" },
+  { id: "pop", label: "Pop" },
+  { id: "blues", label: "Blues" },
+  { id: "jazz", label: "Jazz" },
+  { id: "country", label: "Country" },
+  { id: "indie-rock", label: "Indie Rock" },
+  { id: "alternative-rock", label: "Alternative Rock" },
+  { id: "punk", label: "Punk" },
+  { id: "metal", label: "Metal" },
+  { id: "folk", label: "Folk" },
+  { id: "funk", label: "Funk" },
+  { id: "surf-rock", label: "Surf Rock" },
+  { id: "psychedelic-rock", label: "Psychedelic Rock" },
+  { id: "hard-rock", label: "Hard Rock" },
+  { id: "progressive-rock", label: "Progressive Rock" },
+  { id: "grunge", label: "Grunge" },
+  { id: "southern-rock", label: "Southern Rock" },
+  { id: "ska", label: "Ska" },
+  { id: "reggae", label: "Reggae" },
+  { id: "flamenco", label: "Flamenco" },
+  { id: "bluegrass", label: "Bluegrass" },
+  { id: "hip-hop", label: "Hip-Hop" },
+  { id: "edm", label: "EDM" },
+  { id: "rnb", label: "R&B" },
+  { id: "soul", label: "Soul" },
+  { id: "gospel", label: "Gospel" },
+  { id: "latin", label: "Latin" },
+  { id: "afrobeat", label: "Afrobeat" },
+  { id: "reggaeton", label: "Reggaeton" },
+  { id: "trap", label: "Trap" },
+  { id: "drum-and-bass", label: "Drum & Bass" },
+  { id: "techno", label: "Techno" },
+  { id: "classical", label: "Classical" },
+  { id: "ballads", label: "Ballads" },
+  { id: "singer-songwriter", label: "Singer-Songwriter" },
+  { id: "musical-theatre", label: "Musical Theatre" },
+  { id: "ambient", label: "Ambient" },
+  { id: "new-age", label: "New Age" },
+  { id: "post-rock", label: "Post-Rock" },
+  { id: "garage-rock", label: "Garage Rock" },
+  { id: "lo-fi", label: "Lo-fi" },
+  { id: "shoegaze", label: "Shoegaze" },
+  { id: "emo", label: "Emo" },
+  { id: "math-rock", label: "Math Rock" },
+  { id: "industrial", label: "Industrial" },
+  { id: "j-pop", label: "J-Pop" },
+  { id: "k-pop", label: "K-Pop" },
+  { id: "bossa-nova", label: "Bossa Nova" },
+  { id: "swing", label: "Swing" },
+  { id: "boogie-woogie", label: "Boogie Woogie" },
+];
+
 const FormSchema = z.object({
   instruments: z.array(z.string()).refine((value) => value.some((instrument) => instrument), {
     message: "You have to select at least one instrument.",
   }),
 })
-
-let selectedInstruments: string[] = [] // Fetched from database
 
 export default function Profile() {
     const form = useForm<z.infer<typeof FormSchema>>({
