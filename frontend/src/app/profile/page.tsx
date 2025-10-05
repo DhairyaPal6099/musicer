@@ -214,9 +214,7 @@ export default function Profile() {
                       aria-expanded={open}
                       className="w-[200px] justify-between"
                     >
-                      {value
-                        ? genres.find((genre) => genre.value === value)?.label
-                        : "Select genre..."}
+                      {"Add/Remove Genre..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
@@ -233,7 +231,7 @@ export default function Profile() {
                               onSelect={(currentValue) => {
                                 setValue(currentValue === value ? "" : currentValue)
                                 setOpen(false)
-                                { selectedGenres.includes(currentValue) ? selectedGenres = selectedGenres.filter((genre) => genre !== currentValue) : selectedGenres.push(currentValue); }
+                                { selectedGenres.includes(currentValue) ? selectedGenres = selectedGenres.filter((genre) => genre !== currentValue) : (selectedGenres.length !== 10 ? selectedGenres.push(currentValue) : alert("You can only select upto 10 genres")); }
                                 {console.log(selectedGenres);}
                               }}
                             >
