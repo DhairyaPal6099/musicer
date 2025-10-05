@@ -288,7 +288,6 @@ export default function Profile() {
                           <FormLabel className="text-lg mt-5 mb-2">Artists</FormLabel>
                           <ArtistSelector
                             onSelect={(artist) => {
-                              // Prevent duplicates and max 10
                               if (!field.value.some((a) => a.id === artist.id)) {
                                 if (field.value.length < 10) {
                                   field.onChange([...field.value, artist])
@@ -310,8 +309,6 @@ export default function Profile() {
                               />
                             ))}
                           </div>
-
-                          <FormMessage />
                         </FormItem>
                       )}
                       />
