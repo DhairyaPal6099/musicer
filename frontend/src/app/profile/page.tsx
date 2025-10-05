@@ -203,7 +203,7 @@ export default function Profile() {
                         </FormItem>
                       )}
                     />
-                    {/* TODO: Add genres and instruments as part of the form */}
+                    {/* TODO: Add artists as part of the form */}
 
                     <FormField
                       control={form.control}
@@ -277,6 +277,10 @@ export default function Profile() {
                         </FormItem>
                       )}
                     />
+
+                    {/*ARTISTS*/}
+
+                    
                     <Button type="submit">Submit</Button>
                   </form>
                 </Form>
