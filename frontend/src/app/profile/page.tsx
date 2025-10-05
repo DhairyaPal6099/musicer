@@ -104,6 +104,8 @@ const genres = [
   { value: "boogie-woogie", label: "Boogie Woogie" },
 ];
 
+let selectedGenres: string[] = [];
+
 const FormSchema = z.object({
   instruments: z.array(z.string()).refine((value) => value.some((instrument) => instrument), {
     message: "You have to select at least one instrument.",
@@ -200,6 +202,7 @@ export default function Profile() {
                         </FormItem>
                       )}
                     />
+                    {/* TODO: Add genres and instruments as part of the form */}
                   </form>
                 </Form>
                 <p className="text-lg mt-5 mb-2">Genres</p>
