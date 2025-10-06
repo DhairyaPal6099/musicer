@@ -141,7 +141,7 @@ export default function Profile() {
             <main className="flex flex-row p-5">
               {/* PROFILE */}
               <div className="w-1/3 p-10 border-r">
-                <h1 className="text-4xl font-bold">Profile</h1>
+                <h1 className="text-4xl font-bold"><center>Profile Stuff</center></h1>
                 <div className="mt-5">
                     <p className="text-lg mt-5 mb-2">Name</p>
                     <input type="text" className="border p-2 rounded" defaultValue="JohnDoe" />
@@ -153,13 +153,13 @@ export default function Profile() {
 
               {/* AESTHETICS */}
               <div className="w-1/3 p-10">
-                <h1 className="text-4xl font-bold">Aesthetics</h1>
+                <h1 className="text-4xl font-bold mb-4"><center>Aesthetics</center></h1>
                 <ProfilePicture />
               </div>
 
               {/* MUSIC STUFF */}
               <div className="w-1/3 p-10 border-l">
-                <h1 className="text-4xl font-bold">Music stuff</h1>
+                <h1 className="text-4xl font-bold"><center>Music Stuff</center></h1>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
