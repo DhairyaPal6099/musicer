@@ -55,7 +55,7 @@ export default function ProfilePicture() {
         onChange={handleImageChange}
         className="hidden"
       />
-      <Image className="cursor-pointer rounded-full object-cover" src={croppedImage || placeholderimage} alt="Profile photo" onClick={handleImageClick} width={256} height={256} />
+      <Image className="cursor-pointer rounded-full object-cover transition-transform duration-200 hover:scale-105" src={croppedImage || placeholderimage} alt="Profile photo" onClick={handleImageClick} width={256} height={256} />
 
       {imageSrc && !croppedImage && (
         <div className="flex flex-col items-center space-y-4">
