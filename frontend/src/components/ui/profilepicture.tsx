@@ -61,17 +61,17 @@ export default function ProfilePicture() {
         <div className="flex flex-col items-center space-y-4">
             {/* Cropper container */}
             <div className="relative w-64 h-64">
-            <Cropper
-                image={imageSrc}
-                crop={crop}
-                zoom={zoom}
-                aspect={1}
-                cropShape="round"
-                showGrid={false}
-                onCropChange={setCrop}
-                onZoomChange={setZoom}
-                onCropComplete={onCropComplete}
-            />
+                <Cropper
+                    image={imageSrc}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    cropShape="round"
+                    showGrid={false}
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={onCropComplete}
+                />
             </div>
 
             <input
@@ -81,7 +81,7 @@ export default function ProfilePicture() {
                 step={0.1}
                 value={zoom}
                 onChange={(e) => setZoom(Number(e.target.value))}
-                className="w-64"
+                className="w-72 accent-blue-500 cursor-pointer"
                 />
             <button onClick={() => setImageSrc(null)} className="px-4 py-2 bg-gray-400 text-white rounded">
                 Cancel
