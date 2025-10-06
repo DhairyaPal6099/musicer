@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import Cropper from 'react-easy-crop';
 import type { Area } from 'react-easy-crop';
 import getCroppedImg from './cropImage';
 import Image from 'next/image';
+import placeholderimage from '../../../public/placeholderimage.jpg';
 
 export default function ProfilePicture() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -29,6 +30,13 @@ export default function ProfilePicture() {
     }
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+
   const showCroppedImage = async () => {
     try {
       const cropped = await getCroppedImg(imageSrc!, croppedAreaPixels!);
@@ -40,7 +48,14 @@ export default function ProfilePicture() {
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        onChange={handleImageChange}
+        className="hidden"
+      />
+      <Image className="cursor-pointer rounded-full object-cover" src={croppedImage || placeholderimage} alt="Profile photo" onClick={handleImageClick} width={256} height={256} />
 
       {imageSrc && !croppedImage && (
         <div className="flex flex-col items-center space-y-4">
@@ -77,11 +92,6 @@ export default function ProfilePicture() {
         </div>
         )}
 
-      {croppedImage && (
-        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300">
-          <Image src={croppedImage} alt="Cropped Profile" width={128} height={128} />
-        </div>
-      )}
     </div>
   );
 }
