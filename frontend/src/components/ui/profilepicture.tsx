@@ -19,8 +19,13 @@ export default function ProfilePicture() {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => setImageSrc(reader.result as string);
+      reader.onloadend = () => {
+        setImageSrc(reader.result as string);
+        setCroppedImage(null);
+      }
       reader.readAsDataURL(file);
+
+      e.target.value = '';
     }
   };
 
