@@ -34,6 +34,7 @@ import {
 import { GenreBadge } from "@/components/ui/genrebadge"
 import ArtistSelector from "@/components/ui/artistselector"
 import ProfilePicture from "@/components/ui/profilepicture"
+import { useTheme } from "@/hooks/useTheme"
 
 const instruments = [
   {
@@ -116,6 +117,7 @@ const FormSchema = z.object({
 })
 
 export default function Profile() {
+    const { theme, setTheme } = useTheme();
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -155,6 +157,19 @@ export default function Profile() {
               <div className="w-1/3 p-10">
                 <h1 className="text-4xl font-bold mb-4"><center>Aesthetics</center></h1>
                 <ProfilePicture />
+                <select
+                  value={theme}
+                  onChange={(e) => setTheme(e.target.value)}
+                  className="border rounded-md p-2 bg-transparent"
+                  style={{ color: "rgb(var(--text))", borderColor: "rgb(var(--secondary))" }}
+                >
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                  <option value="forest">Forest</option>
+                  <option value="sunset">Sunset</option>
+                  <option value="ocean">Ocean</option>
+                  <option value="midnight">Midnight</option>
+                </select>
               </div>
 
               {/* MUSIC STUFF */}
