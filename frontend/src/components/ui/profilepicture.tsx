@@ -1,4 +1,3 @@
-// components/ProfilePicture.tsx
 import { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
 import type { Area } from 'react-easy-crop';
@@ -39,35 +38,39 @@ export default function ProfilePicture() {
       <input type="file" accept="image/*" onChange={handleImageChange} />
 
       {imageSrc && !croppedImage && (
-        <div className="relative w-64 h-64">
-          <Cropper
-            image={imageSrc}
-            crop={crop}
-            zoom={zoom}
-            aspect={1}
-            cropShape="round"
-            showGrid={false}
-            onCropChange={setCrop}
-            onZoomChange={setZoom}
-            onCropComplete={onCropComplete}
-          />
-          <input
+        <div className="flex flex-col items-center space-y-4">
+            {/* Cropper container */}
+            <div className="relative w-64 h-64">
+            <Cropper
+                image={imageSrc}
+                crop={crop}
+                zoom={zoom}
+                aspect={1}
+                cropShape="round"
+                showGrid={false}
+                onCropChange={setCrop}
+                onZoomChange={setZoom}
+                onCropComplete={onCropComplete}
+            />
+            </div>
+
+            <input
             type="range"
             min={1}
             max={3}
             step={0.1}
             value={zoom}
             onChange={(e) => setZoom(Number(e.target.value))}
-            className="mt-2 w-full"
-          />
-          <button
+            className="w-64"
+            />
+            <button
             onClick={showCroppedImage}
-            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-          >
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+            >
             Save Crop
-          </button>
+            </button>
         </div>
-      )}
+        )}
 
       {croppedImage && (
         <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300">
