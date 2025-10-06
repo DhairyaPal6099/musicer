@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/popover"
 import { GenreBadge } from "@/components/ui/genrebadge"
 import ArtistSelector from "@/components/ui/artistselector"
+import ProfilePicture from "@/components/ui/profilepicture"
 
 const instruments = [
   {
@@ -153,6 +154,7 @@ export default function Profile() {
               {/* AESTHETICS */}
               <div className="w-1/3 p-10">
                 <h1 className="text-4xl font-bold">Aesthetics</h1>
+                <ProfilePicture />
               </div>
 
               {/* MUSIC STUFF */}
