@@ -1,7 +1,14 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+class Profile(BaseModel):
+    name: str
+    email: str
+    profile_picture_url: str
+
+@app.post("/profile")
+def save_profile(profile: Profile):
+    # cursor.execute some database insertion
+    return {"message": "Profile saved", "user_id": "replace with fetched user id"}
