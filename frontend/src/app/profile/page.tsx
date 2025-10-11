@@ -131,8 +131,8 @@ export default function Profile() {
     function onSubmit(data: z.infer<typeof FormSchema>) {
       toast("You submitted the following values", {
         description: (
-          <pre className="mt-2 w-[320px] rounded-md bg-neutral-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <pre className="mt-2 w-[320px] rounded-md bg-secondary p-4 text-theme border border-theme">
+            <code className="text-theme">{JSON.stringify(data, null, 2)}</code>
           </pre>
         ),
       })
@@ -140,28 +140,27 @@ export default function Profile() {
 
     return (
         <>
-            <main className="flex flex-row p-5">
+            <main className="flex flex-row min-h-screen bg-theme text-theme transition-colors duration-300 p-5">
               {/* PROFILE */}
-              <div className="w-1/3 p-10 border-r">
-                <h1 className="text-4xl font-bold"><center>Profile Stuff</center></h1>
+              <div className="w-1/3 p-10 border-r border-theme">
+                <h1 className="text-4xl font-bold text-primary text-center"><center>Profile Stuff</center></h1>
                 <div className="mt-5">
-                    <p className="text-lg mt-5 mb-2">Name</p>
-                    <input type="text" className="border p-2 rounded" defaultValue="JohnDoe" />
+                    <p className="text-lg mt-5 mb-2 text-secondary">Name</p>
+                    <input type="text" className="border border-theme p-2 rounded-md bg-transparent text-theme focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200" defaultValue="JohnDoe" />
                     <p className="text-lg mt-5 mb-2">Email</p>
-                    <input type="email" className="border p-2 rounded" defaultValue="johndoe@gmail.com" />
+                    <input type="email" className="border border-theme p-2 rounded-md bg-transparent text-theme focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200" defaultValue="johndoe@gmail.com" />
                     
                 </div>
               </div>
 
               {/* AESTHETICS */}
               <div className="w-1/3 p-10">
-                <h1 className="text-4xl font-bold mb-4"><center>Aesthetics</center></h1>
+                <h1 className="text-4xl font-bold text-primary mb-4 text-center"><center>Aesthetics</center></h1>
                 <ProfilePicture />
                 <select
                   value={theme}
                   onChange={(e) => setTheme(e.target.value)}
-                  className="border rounded-md p-2 bg-transparent"
-                  style={{ color: "rgb(var(--text))", borderColor: "rgb(var(--secondary))" }}
+                  className="border border-theme rounded-md p-2 mt-5 bg-transparent text-theme transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="light">Light</option>
                   <option value="dark">Dark</option>
@@ -173,8 +172,8 @@ export default function Profile() {
               </div>
 
               {/* MUSIC STUFF */}
-              <div className="w-1/3 p-10 border-l">
-                <h1 className="text-4xl font-bold"><center>Music Stuff</center></h1>
+              <div className="w-1/3 p-10 border-l border-theme">
+                <h1 className="text-4xl font-bold text-primary text-center"><center>Music Stuff</center></h1>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
@@ -182,7 +181,7 @@ export default function Profile() {
                       name="instruments"
                       render={() => (
                         <FormItem>
-                          <FormLabel className="text-lg mt-5 mb-2">Instruments</FormLabel>
+                          <FormLabel className="text-lg mt-5 mb-2 text-secondary">Instruments</FormLabel>
                           {instruments.map((instrument) => (
                             <FormField
                               key={instrument.id}
@@ -208,7 +207,7 @@ export default function Profile() {
                                         }}
                                       />
                                     </FormControl>
-                                    <FormLabel className="text-sm font-normal">
+                                    <FormLabel className="text-sm font-normal text-theme">
                                       {instrument.label}
                                     </FormLabel>
                                   </FormItem>
@@ -226,20 +225,20 @@ export default function Profile() {
                       name="genres"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-lg mt-5 mb-2">Genres</FormLabel>
+                          <FormLabel className="text-lg mt-5 mb-2 text-secondary">Genres</FormLabel>
                           <Popover open={open} onOpenChange={setOpen}>
                             <PopoverTrigger asChild>
                               <Button
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={open}
-                                className="w-[200px] justify-between"
+                                className="w-[200px] justify-between border-theme bg-transparent text-theme"
                               >
                                 {"Add/Remove Genre..."}
                                 <ChevronsUpDown className="opacity-50" />
                               </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
+                            <PopoverContent className="w-[200px] p-0 bg-theme border border-theme">
                               <Command>
                                 <CommandInput placeholder="Search genre..." className="h-9" />
                                 <CommandList>
@@ -299,7 +298,7 @@ export default function Profile() {
                       name="artists"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-lg mt-5 mb-2">Artists</FormLabel>
+                          <FormLabel className="text-lg mt-5 mb-2 text-secondary">Artists</FormLabel>
                           <ArtistSelector
                             onSelect={(artist) => {
                               if (!field.value.some((a) => a.id === artist.id)) {
@@ -328,7 +327,7 @@ export default function Profile() {
                       />
 
 
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" className="bg-primary text-theme hover:bg-primary/90 transition-all duration-300">Submit</Button>
                   </form>
                 </Form>                
               </div>
