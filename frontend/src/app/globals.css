@@ -125,6 +125,8 @@
 [data-theme="light"] {
   --bg: 255, 255, 255;       /* plain white background */
   --text: 30, 30, 30;        /* light black (dark gray) text */
+  --header-bg: 230, 230, 230;      /* light gray header */
+  --header-text: 0, 0, 0;          /* black header text */
   --primary: 0, 102, 204;    /* simple blue accent */
   --secondary: 220, 220, 220;/* subtle light gray secondary tone */
 }
@@ -133,6 +135,8 @@
 [data-theme="dark"] {
   --bg: 17, 24, 39;
   --text: 243, 244, 246;
+  --header-bg: 30, 40, 60;         /* slightly lighter than bg */
+  --header-text: 243, 244, 246;    /* same as page text */
   --primary: 147, 197, 253;
   --secondary: 165, 180, 252;
 }
@@ -141,6 +145,8 @@
 [data-theme="forest"] {
   --bg: 23, 37, 23;
   --text: 236, 253, 245;
+  --header-bg: 30, 55, 30;         /* slightly lighter green */
+  --header-text: 236, 253, 245;
   --primary: 34, 197, 94;
   --secondary: 74, 222, 128;
 }
@@ -149,6 +155,8 @@
 [data-theme="sunset"] {
   --bg: 255, 247, 237;
   --text: 41, 37, 36;
+  --header-bg: 250, 220, 200;      /* deeper orange */
+  --header-text: 41, 37, 36;
   --primary: 249, 115, 22;
   --secondary: 251, 146, 60;
 }
@@ -157,6 +165,8 @@
 [data-theme="ocean"] {
   --bg: 240, 249, 255;
   --text: 15, 23, 42;
+  --header-bg: 200, 220, 245;      /* slightly darker blue */
+  --header-text: 15, 23, 42;
   --primary: 2, 132, 199;
   --secondary: 6, 182, 212;
 }
@@ -165,6 +175,8 @@
 [data-theme="midnight"] {
   --bg: 10, 10, 15;
   --text: 229, 231, 235;
+  --header-bg: 25, 25, 40;         /* slightly lighter dark */
+  --header-text: 229, 231, 235;
   --primary: 139, 92, 246;
   --secondary: 79, 70, 229;
 }
@@ -187,4 +199,12 @@
 
 .text-primary {
   color: rgb(var(--primary));
+}
+
+.bg-header {
+  background-color: rgb(var(--header-bg));
+}
+
+.text-header {
+  color: rgb(var(--header-text));
 }
