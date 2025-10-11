@@ -95,13 +95,13 @@ export default function ArtistSelector({ onSelect }: ArtistSelectorProps) {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[250px] p-0">
+      <PopoverContent className="w-[250px] p-0 bg-theme text-theme border border-secondary transition-colors duration-300">
         <Command>
           <CommandList>
-            <CommandItem className="p-2">
+            <CommandItem className="hover:bg-secondary hover:text-primary transition-colors duration-200 p-2">
               <input
                 autoFocus
-                className="w-full border rounded px-2 py-1"
+                className="w-full rounded px-2 py-1 bg-theme text-theme border border-secondary focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200"
                 placeholder="Type to search..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -109,7 +109,7 @@ export default function ArtistSelector({ onSelect }: ArtistSelectorProps) {
             </CommandItem>
 
             {loading && (
-              <CommandItem disabled className="flex items-center gap-2">
+              <CommandItem disabled className="flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors duration-200">
                 <Loader2 className="h-4 w-4 animate-spin" /> Searching...
               </CommandItem>
             )}
