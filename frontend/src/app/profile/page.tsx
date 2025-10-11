@@ -109,11 +109,21 @@ const genres = [
 ];
 
 const FormSchema = z.object({
+  // Profile section
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+
+  // Aesthetics section  
+  profilePicture: z.string().optional(),
+  theme: z.string(),
+
+  // Music section
   instruments: z.array(z.string()).refine((value) => value.some((instrument) => instrument), {
     message: "You have to select at least one instrument.",
   }),
   genres: z.array(z.string()).max(10, "You can select up to 10 genres."),
   artists: z.array(z.object({ id: z.string(), name: z.string() })).max(10, "You can select up to 10 artists"),
+
 })
 
 export default function Profile() {
@@ -121,6 +131,10 @@ export default function Profile() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      name: "", // Will be populated from your backend
+      email: "", // Will be populated from your backend
+      theme: theme, // Use current theme
+      profilePicture: "", // Will be populated from your backend
       instruments: [], // Fetched from database
       genres: [], // Fetched from database
       artists: [], // Fetched from database
@@ -171,42 +185,85 @@ export default function Profile() {
 
   return (
     <>
-      <main className="flex flex-row min-h-screen bg-theme text-theme transition-colors duration-300 p-5">
-        {/* PROFILE */}
-        <div className="w-1/3 p-10 border-r border-theme">
-          <h1 className="text-4xl font-bold text-primary text-center"><center>Profile Stuff</center></h1>
-          <div className="mt-5">
-            <p className="text-lg mt-5 mb-2 text-secondary">Name</p>
-            <input type="text" className="border border-theme p-2 rounded-md bg-transparent text-theme focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200" defaultValue="JohnDoe" />
-            <p className="text-lg mt-5 mb-2">Email</p>
-            <input type="email" className="border border-theme p-2 rounded-md bg-transparent text-theme focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200" defaultValue="johndoe@gmail.com" />
+      <main className="min-h-screen bg-theme text-theme transition-colors duration-300 p-5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-row w-full min-h-screen space-y-8">
+            {/* PROFILE */}
+            <div className="w-1/3 p-10 border-r border-theme">
+              <h1 className="text-4xl font-bold text-primary text-center"><center>Profile Stuff</center></h1>
+              <div className="mt-5">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-lg mt-5 mb-2 text-secondary">Name</FormLabel>
+                      <FormControl>
+                        <input
+                          type="text"
+                          className="border border-theme p-2 rounded-md bg-transparent text-theme focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                          {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-          </div>
-        </div>
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-lg mt-5 mb-2 text-secondary">Email</FormLabel>
+                      <FormControl>
+                        <input
+                          type="text"
+                          className="border border-theme p-2 rounded-md bg-transparent text-theme focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+                          {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
 
-        {/* AESTHETICS */}
-        <div className="w-1/3 p-10">
-          <h1 className="text-4xl font-bold text-primary mb-4 text-center"><center>Aesthetics</center></h1>
-          <ProfilePicture />
-          <select
-            value={theme}
-            onChange={(e) => setTheme(e.target.value)}
-            className="select-theme border rounded-md p-2 mt-5 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-            <option value="forest">Forest</option>
-            <option value="sunset">Sunset</option>
-            <option value="ocean">Ocean</option>
-            <option value="midnight">Midnight</option>
-          </select>
-        </div>
+            {/* AESTHETICS */}
+            <div className="w-1/3 p-10">
+              <h1 className="text-4xl font-bold text-primary mb-4 text-center"><center>Aesthetics</center></h1>
+              <ProfilePicture />
 
-        {/* MUSIC STUFF */}
-        <div className="w-1/3 p-10 border-l border-theme">
-          <h1 className="text-4xl font-bold text-primary text-center"><center>Music Stuff</center></h1>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="theme"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-lg mt-5 mb-2 text-secondary">Theme</FormLabel>
+                    <FormControl>
+                      <select
+                        {...field}
+                        className="select-theme border rounded-md p-2 mt-5 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary w-full"
+                        value={theme}
+                        onChange={(e) => setTheme(e.target.value)}
+                      >
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="forest">Forest</option>
+                        <option value="sunset">Sunset</option>
+                        <option value="ocean">Ocean</option>
+                        <option value="midnight">Midnight</option>
+                      </select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* MUSIC STUFF */}
+            <div className="w-1/3 p-10 border-l border-theme">
+              <h1 className="text-4xl font-bold text-primary text-center"><center>Music Stuff</center></h1>
+
               <FormField
                 control={form.control}
                 name="instruments"
@@ -355,9 +412,9 @@ export default function Profile() {
 
 
               <Button type="submit" className="bg-primary text-theme hover:bg-primary/90 transition-all duration-300">Submit</Button>
-            </form>
-          </Form>
-        </div>
+            </div>
+          </form>
+        </Form>
       </main>
     </>
   );
