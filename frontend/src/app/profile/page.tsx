@@ -202,6 +202,7 @@ export default function Profile() {
                                       )
                                     }
                                   }}
+                                  defaultChecked={undefined}
                                 />
                               </FormControl>
                               <FormLabel className="text-sm font-normal text-theme">
