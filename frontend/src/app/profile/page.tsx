@@ -131,7 +131,7 @@ export default function Profile() {
     function onSubmit(data: z.infer<typeof FormSchema>) {
       toast("You submitted the following values", {
         description: (
-          <pre className="mt-2 w-[320px] rounded-md bg-secondary p-4 text-theme border border-theme">
+          <pre className="mt-2 w-[320px] rounded-md bg-theme p-4 border border-theme text-theme">
             <code className="text-theme">{JSON.stringify(data, null, 2)}</code>
           </pre>
         ),

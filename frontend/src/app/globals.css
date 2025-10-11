@@ -121,6 +121,14 @@
   }
 }
 
+/* Light theme */
+[data-theme="light"] {
+  --bg: 255, 255, 255;       /* plain white background */
+  --text: 30, 30, 30;        /* light black (dark gray) text */
+  --primary: 0, 102, 204;    /* simple blue accent */
+  --secondary: 220, 220, 220;/* subtle light gray secondary tone */
+}
+
 /* Dark theme */
 [data-theme="dark"] {
   --bg: 17, 24, 39;
