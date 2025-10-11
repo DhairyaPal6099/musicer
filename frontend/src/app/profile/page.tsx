@@ -179,42 +179,37 @@ export default function Profile() {
                     <FormField
                       control={form.control}
                       name="instruments"
-                      render={() => (
+                      render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-lg mt-5 mb-2 text-secondary">Instruments</FormLabel>
+                          <FormLabel className="text-lg mt-5 mb-2 text-secondary">
+                            Instruments
+                          </FormLabel>
+
                           {instruments.map((instrument) => (
-                            <FormField
+                            <div
                               key={instrument.id}
-                              control={form.control}
-                              name="instruments"
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    key={instrument.id}
-                                    className="flex flex-row items-center gap-2"
-                                  >
-                                    <FormControl>
-                                      <Checkbox
-                                        checked={field.value?.includes(instrument.id)}
-                                        onCheckedChange={(checked) => {
-                                          return checked
-                                            ? field.onChange([...field.value, instrument.id])
-                                            : field.onChange(
-                                                field.value?.filter(
-                                                  (value) => value !== instrument.id
-                                                )
-                                              )
-                                        }}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal text-theme">
-                                      {instrument.label}
-                                    </FormLabel>
-                                  </FormItem>
-                                )
-                              }}
-                            />
+                              className="flex flex-row items-center gap-2"
+                            >
+                              <FormControl>
+                                <Checkbox
+                                  checked={field.value?.includes(instrument.id)}
+                                  onCheckedChange={(checked) => {
+                                    if (checked) {
+                                      field.onChange([...(field.value || []), instrument.id])
+                                    } else {
+                                      field.onChange(
+                                        field.value?.filter((v) => v !== instrument.id)
+                                      )
+                                    }
+                                  }}
+                                />
+                              </FormControl>
+                              <FormLabel className="text-sm font-normal text-theme">
+                                {instrument.label}
+                              </FormLabel>
+                            </div>
                           ))}
+
                           <FormMessage />
                         </FormItem>
                       )}
