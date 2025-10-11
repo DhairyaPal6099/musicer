@@ -217,7 +217,7 @@ export default function Profile() {
 
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-lg mt-5 mb-2 text-secondary">Email</FormLabel>
