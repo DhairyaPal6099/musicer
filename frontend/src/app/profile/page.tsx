@@ -164,6 +164,7 @@ export default function Profile() {
           </pre>
         ),
       })
+      console.log(e.message);
     }
 
   }
