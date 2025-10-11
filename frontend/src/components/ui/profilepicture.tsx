@@ -81,14 +81,14 @@ export default function ProfilePicture() {
                 step={0.1}
                 value={zoom}
                 onChange={(e) => setZoom(Number(e.target.value))}
-                className="w-72 accent-blue-500 cursor-pointer"
+                className="w-72 accent-primary cursor-pointer"
                 />
-            <button onClick={() => setImageSrc(null)} className="px-4 py-2 bg-gray-400 text-white rounded">
+            <button onClick={() => setImageSrc(null)} className="px-4 py-2 bg-secondary text-theme rounded transition-colors duration-300 hover:opacity-80">
                 Cancel
             </button>
             <button
                 onClick={showCroppedImage}
-                className="px-4 py-2 bg-blue-500 text-white rounded"
+                className="px-4 py-2 bg-primary text-theme rounded transition-colors duration-300 hover:opacity-90"
                 >
             Save Crop
             </button>
