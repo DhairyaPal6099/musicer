@@ -111,7 +111,7 @@ const genres = [
 const FormSchema = z.object({
   // Profile section
   name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
+  email: z.string(),
 
   // Aesthetics section  
   profilePicture: z.string().optional(),
@@ -183,11 +183,17 @@ export default function Profile() {
 
   }
 
+  const onInvalid = (errors: any) => {
+    toast("Please fix the form errors", {
+      description: "Check the form for validation errors",
+    });
+  };
+
   return (
     <>
       <main className="min-h-screen bg-theme text-theme transition-colors duration-300 p-5">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-row w-full min-h-screen space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="flex flex-row w-full min-h-screen space-y-8">
             {/* PROFILE */}
             <div className="w-1/3 p-10 border-r border-theme">
               <h1 className="text-4xl font-bold text-primary text-center"><center>Profile Stuff</center></h1>
