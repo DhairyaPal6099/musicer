@@ -58,7 +58,7 @@ export default function ProfilePicture() {
       <Image className="cursor-pointer rounded-full object-cover transition-transform duration-200 hover:scale-105" src={croppedImage || placeholderimage} alt="Profile photo" onClick={handleImageClick} width={256} height={256} />
 
       {imageSrc && !croppedImage && (
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center space-y-4 bg-theme text-theme p-4 rounded-2xl shadow-md transition-colors duration-300">
             {/* Cropper container */}
             <div className="relative w-64 h-64">
                 <Cropper
