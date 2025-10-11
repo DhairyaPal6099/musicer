@@ -74,6 +74,8 @@ jobs:
         with:
           app-name: 'Musicer'
           slot-name: 'Production'
+          startup-command: 'uvicorn app.main:app --host=0.0.0.0 --port=8000'
 
           
+
 
