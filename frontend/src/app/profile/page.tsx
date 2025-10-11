@@ -203,7 +203,7 @@ export default function Profile() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg mt-5 mb-2 text-secondary">Name</FormLabel>
+                      <FormLabel className="text-lg mt-5 text-secondary">Name</FormLabel>
                       <FormControl>
                         <input
                           type="text"
@@ -220,7 +220,7 @@ export default function Profile() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg mt-5 mb-2 text-secondary">Email</FormLabel>
+                      <FormLabel className="text-lg mt-5 text-secondary">Email</FormLabel>
                       <FormControl>
                         <input
                           type="text"
@@ -244,11 +244,11 @@ export default function Profile() {
                 name="theme"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg mt-5 mb-2 text-secondary">Theme</FormLabel>
+                    <FormLabel className="text-lg mt-5 text-secondary">Theme</FormLabel>
                     <FormControl>
                       <select
                         {...field}
-                        className="select-theme border rounded-md p-2 mt-5 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary w-full"
+                        className="select-theme border rounded-md p-2 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary w-full"
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
                       >
@@ -275,7 +275,7 @@ export default function Profile() {
                 name="instruments"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg mt-5 mb-2 text-secondary">
+                    <FormLabel className="text-lg mt-5 text-secondary">
                       Instruments
                     </FormLabel>
 
@@ -315,7 +315,7 @@ export default function Profile() {
                 name="genres"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg mt-5 mb-2 text-secondary">Genres</FormLabel>
+                    <FormLabel className="text-lg mt-5 text-secondary">Genres</FormLabel>
                     <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
                         <Button
@@ -388,7 +388,7 @@ export default function Profile() {
                 name="artists"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg mt-5 mb-2 text-secondary">Artists</FormLabel>
+                    <FormLabel className="text-lg mt-5 text-secondary">Artists</FormLabel>
                     <ArtistSelector
                       onSelect={(artist) => {
                         if (!field.value.some((a) => a.id === artist.id)) {
@@ -417,7 +417,7 @@ export default function Profile() {
               />
 
 
-              <Button type="submit" className="bg-primary text-theme hover:bg-primary/90 transition-all duration-300">Submit</Button>
+              <Button type="submit" className="bg-primary mt-10 text-theme hover:bg-primary/90 transition-all duration-300">Submit</Button>
             </div>
           </form>
         </Form>
