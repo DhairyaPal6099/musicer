@@ -160,7 +160,7 @@ export default function Profile() {
                 <select
                   value={theme}
                   onChange={(e) => setTheme(e.target.value)}
-                  className="border border-theme rounded-md p-2 mt-5 bg-transparent text-theme transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="select-theme border rounded-md p-2 mt-5 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="light">Light</option>
                   <option value="dark">Dark</option>
