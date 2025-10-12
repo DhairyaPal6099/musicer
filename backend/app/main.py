@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import Base, engine, get_db, SessionLocal
+from .database import Base, engine, get_db, SessionLocal
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 
 class ProfileDB(Base):
     __tablename__ = "profiles"
@@ -12,6 +14,9 @@ class ProfileDB(Base):
     instruments = Column(ARRAY(String))
     genres = Column(ARRAY(String))
     artists = Column(JSONB)
+
+# Creating all tables if they don't already exist
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -35,4 +40,24 @@ def get_profile():
 
 @app.post("/profile")
 def save_profile():
-    return {"message": "YOBRO"}
+    with SessionLocal() as session:
+        test_profile = ProfileDB(
+            name="Dhairya User",
+            email="RAMU@GMAIL.com",
+            theme="midnight", 
+            instruments=["guitar", "piano"],
+            genres=["rock", "jazz"],
+            artists=[{"id": "1", "name": "Test Artist"}]
+        )
+        
+        session.add(test_profile)
+        print(f"✅ Profile added to session: {test_profile.email}")
+        
+        session.commit()
+        print("✅ Session committed to database!")
+        
+        # Refresh to get the auto-generated ID
+        session.refresh(test_profile)
+        print(f"✅ Profile saved with ID: {test_profile.id}")
+    
+    return {"message": "Data saved successfully"}
