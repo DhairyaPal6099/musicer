@@ -247,10 +247,13 @@ export default function Profile() {
                     <FormLabel className="text-lg mt-5 text-secondary">Theme</FormLabel>
                     <FormControl>
                       <select
-                        {...field}
                         className="select-theme border rounded-md p-2 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary w-full"
                         value={theme}
-                        onChange={(e) => setTheme(e.target.value)}
+                        onChange={(e) => {
+                          setTheme(e.target.value)
+                          field.onChange(e.target.value)
+                        }}
+
                       >
                         <option value="light">Light</option>
                         <option value="dark">Dark</option>
