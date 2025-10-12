@@ -1,5 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from database import Base, engine, get_db, SessionLocal
+
+class ProfileDB(Base):
+    __tablename__ = "profiles"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    theme = Column(String, default="light")
+    instruments = Column(ARRAY(String))
+    genres = Column(ARRAY(String))
+    artists = Column(JSONB)
 
 app = FastAPI()
 
