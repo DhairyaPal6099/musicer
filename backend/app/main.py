@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .database import Base, engine, get_db, SessionLocal
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 
 class ProfileDB(Base):
@@ -39,25 +40,24 @@ def get_profile():
     return {"message": "Profile saved", "user_id": "replace with fetched user id"}
 
 @app.post("/profile")
-def save_profile():
-    with SessionLocal() as session:
-        test_profile = ProfileDB(
-            name="Dhairya User",
-            email="RAMU@GMAIL.com",
-            theme="midnight", 
-            instruments=["guitar", "piano"],
-            genres=["rock", "jazz"],
-            artists=[{"id": "1", "name": "Test Artist"}]
-        )
-        
-        session.add(test_profile)
-        print(f"✅ Profile added to session: {test_profile.email}")
-        
-        session.commit()
-        print("✅ Session committed to database!")
-        
-        # Refresh to get the auto-generated ID
-        session.refresh(test_profile)
-        print(f"✅ Profile saved with ID: {test_profile.id}")
+def save_profile(db: Session = Depends(get_db)):
+    test_profile = ProfileDB(
+        name="Dhairya User",
+        email="RAAIL.com",
+        theme="midnight", 
+        instruments=["guitar", "piano"],
+        genres=["rock", "jazz"],
+        artists=[{"id": "1", "name": "Test Artist"}]
+    )
+    
+    db.add(test_profile)
+    print(f"✅ Profile added to session: {test_profile.email}")
+    
+    db.commit()
+    print("✅ Session committed to database!")
+    
+    # Refresh to get the auto-generated ID
+    db.refresh(test_profile)
+    print(f"✅ Profile saved with ID: {test_profile.id}")
     
     return {"message": "Data saved successfully"}
