@@ -31,7 +31,7 @@ export default function ProfilePicture() {
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const handleImageClick = () => {
     fileInputRef.current?.click();
   };
@@ -59,41 +59,42 @@ export default function ProfilePicture() {
 
       {imageSrc && !croppedImage && (
         <div className="flex flex-col items-center space-y-4 bg-theme text-theme p-4 rounded-2xl shadow-md transition-colors duration-300">
-            {/* Cropper container */}
-            <div className="relative w-64 h-64">
-                <Cropper
-                    image={imageSrc}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1}
-                    cropShape="round"
-                    showGrid={false}
-                    onCropChange={setCrop}
-                    onZoomChange={setZoom}
-                    onCropComplete={onCropComplete}
-                />
-            </div>
+          {/* Cropper container */}
+          <div className="relative w-64 h-64">
+            <Cropper
+              image={imageSrc}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              cropShape="round"
+              showGrid={false}
+              onCropChange={setCrop}
+              onZoomChange={setZoom}
+              onCropComplete={onCropComplete}
+            />
+          </div>
 
-            <input
-                type="range"
-                min={1}
-                max={3}
-                step={0.1}
-                value={zoom}
-                onChange={(e) => setZoom(Number(e.target.value))}
-                className="w-72 accent-primary cursor-pointer"
-                />
-            <button onClick={() => setImageSrc(null)} className="px-4 py-2 bg-secondary text-theme rounded transition-colors duration-300 hover:opacity-80">
-                Cancel
-            </button>
-            <button
-                onClick={showCroppedImage}
-                className="px-4 py-2 bg-primary text-theme rounded transition-colors duration-300 hover:opacity-90"
-                >
+          <input
+            type="range"
+            min={1}
+            max={3}
+            step={0.1}
+            value={zoom}
+            onChange={(e) => setZoom(Number(e.target.value))}
+            className="w-72 accent-primary cursor-pointer"
+          />
+          <button type="button" onClick={() => setImageSrc(null)} className="px-4 py-2 bg-secondary text-theme rounded transition-colors duration-300 hover:opacity-80">
+            Cancel
+          </button>
+          <button
+            type='button'
+            onClick={showCroppedImage}
+            className="px-4 py-2 bg-primary text-theme rounded transition-colors duration-300 hover:opacity-90"
+          >
             Save Crop
-            </button>
+          </button>
         </div>
-        )}
+      )}
 
     </div>
   );
