@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from .database import Base, engine, get_db, SessionLocal
+from .database import Base, engine, get_db
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
