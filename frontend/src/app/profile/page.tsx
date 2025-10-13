@@ -237,7 +237,22 @@ export default function Profile() {
             {/* AESTHETICS */}
             <div className="w-1/3 p-10">
               <h1 className="text-4xl font-bold text-primary mb-4 text-center"><center>Aesthetics</center></h1>
-              <ProfilePicture />
+              <FormField
+                control={form.control}
+                name="profilePicture"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <ProfilePicture
+                        onImageChange={(imageUrl) => {
+                          field.onChange(imageUrl);
+                        }}
+                        currentImage={field.value}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}

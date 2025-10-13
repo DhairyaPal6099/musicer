@@ -5,7 +5,12 @@ import getCroppedImg from './cropImage';
 import Image from 'next/image';
 import placeholderimage from '../../../public/placeholderimage.jpg';
 
-export default function ProfilePicture() {
+interface ProfilePictureProps {
+  onImageChange: (imageUrl: string) => void;
+  currentImage?: string;
+}
+
+export default function ProfilePicture({ onImageChange, currentImage }: ProfilePictureProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
