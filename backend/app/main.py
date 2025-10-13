@@ -69,15 +69,7 @@ def get_profile():
 @app.post("/profile", response_model = ProfileResponse)
 def save_profile(profile_data: ProfileCreate, db: Session = Depends(get_db)):
     db_profile = ProfileDB(**profile_data.dict())
-
-    db.add(db_profile)
-    print(f"✅ Profile added to session: {db_profile.email}")
-    
+    db.add(db_profile)   
     db.commit()
-    print("✅ Session committed to database!")
-    
-    # Refresh to get the auto-generated ID
-    db.refresh(db_profile)
-    print(f"✅ Profile saved with ID: {db_profile.id}")
     
     return db_profile
