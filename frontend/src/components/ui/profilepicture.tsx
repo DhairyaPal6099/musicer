@@ -11,7 +11,7 @@ interface ProfilePictureProps {
 }
 
 export default function ProfilePicture({ onImageChange, currentImage }: ProfilePictureProps) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageSrc, setImageSrc] = useState<string | null>(currentImage || null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -45,7 +45,14 @@ export default function ProfilePicture({ onImageChange, currentImage }: ProfileP
   const showCroppedImage = async () => {
     try {
       const cropped = await getCroppedImg(imageSrc!, croppedAreaPixels!);
+
+      const response = await fetch(cropped);
+      const blob = await response.blob();
+      const file = new File([blob], 'profile-picture.jpg', { type: 'image/jpeg' });
+
       setCroppedImage(cropped);
+      onImageChange(cropped);
+      setImageSrc(null);
     } catch (e) {
       console.error(e);
     }
@@ -60,7 +67,7 @@ export default function ProfilePicture({ onImageChange, currentImage }: ProfileP
         onChange={handleImageChange}
         className="hidden"
       />
-      <Image className="cursor-pointer rounded-full object-cover transition-transform duration-200 hover:scale-105" src={croppedImage || placeholderimage} alt="Profile photo" onClick={handleImageClick} width={256} height={256} />
+      <Image className="cursor-pointer rounded-full object-cover transition-transform duration-200 hover:scale-105" src={croppedImage || currentImage || placeholderimage} alt="Profile photo" onClick={handleImageClick} width={256} height={256} />
 
       {imageSrc && !croppedImage && (
         <div className="flex flex-col items-center space-y-4 bg-theme text-theme p-4 rounded-2xl shadow-md transition-colors duration-300">
