@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 export default function Home() {
   return (
     <>
-      <main className="flex min-h-screen flex-col justify-between pt-10 pl-10 bg-theme text-theme transition-colors duration-300">
+      <main className="flex min-h-screen flex-col justify-between pt-10 pl-10 pr-10 bg-theme text-theme transition-colors duration-300">
 
         {/* BACKGROUND VIDEO */}
         <video
