@@ -154,18 +154,19 @@ export default function Profile() {
       })
 
       if (!response.ok) {
+        const errorData = await response.json();
         toast("Couldn't save your profile", {
           description: (
             <pre className="mt-2 w-[320px] rounded-md bg-theme p-4 border border-theme text-theme">
-              <code className="text-theme">{response.text()}</code>
+              <code className="text-theme">{errorData.detail}</code>
             </pre>
           ),
         })
       } else {
-        toast("You submitted the following values", {
+        toast("Profile successfully Saved!", {
           description: (
             <pre className="mt-2 w-[320px] rounded-md bg-theme p-4 border border-theme text-theme">
-              <code className="text-theme">{JSON.stringify(data, null, 2)}</code>
+              <code className="text-theme">{"Your profile has been updated."}</code>
             </pre>
           ),
         })

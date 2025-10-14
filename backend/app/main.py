@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .database import Base, engine, get_db
 from sqlalchemy import Column, Integer, String
@@ -68,8 +68,18 @@ def get_profile():
 
 @app.post("/profile", response_model = ProfileResponse)
 def save_profile(profile_data: ProfileCreate, db: Session = Depends(get_db)):
+    # Check if email already exists
+    existing_profile = db.query(ProfileDB).filter(ProfileDB.email == profile_data.email).first()
+    if (existing_profile):
+        raise HTTPException(
+            status_code = 400,
+            detail = "Email already registered"
+        )
+    
+    # Add to db
     db_profile = ProfileDB(**profile_data.dict())
     db.add(db_profile)   
     db.commit()
+    db.refresh(db_profile)
     
     return db_profile
