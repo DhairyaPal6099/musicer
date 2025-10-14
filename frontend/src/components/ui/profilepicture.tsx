@@ -49,6 +49,11 @@ export default function ProfilePicture({ onImageChange, currentImage }: ProfileP
       const response = await fetch(cropped);
       const blob = await response.blob();
       const file = new File([blob], 'profile-picture.jpg', { type: 'image/jpeg' });
+      {/*
+        
+        TO ADD: Make use of the file variable (if it's useful) and store it as a file somewhere because base64 strings are very long to be stored in db
+
+        */}
 
       setCroppedImage(cropped);
       onImageChange(cropped);

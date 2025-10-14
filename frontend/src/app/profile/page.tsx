@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -111,7 +111,7 @@ const genres = [
 const FormSchema = z.object({
   // Profile section
   name: z.string().min(1, "Name is required"),
-  email: z.string(),
+  email: z.email("Invalid email address"),
 
   // Aesthetics section  
   profilePicture: z.string().optional(),
