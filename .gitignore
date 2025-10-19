@@ -9,6 +9,9 @@
 !.yarn/releases
 !.yarn/versions
 
+# client credentials for Google OAuth
+client_credentials.json
+
 # testing
 /coverage
 
