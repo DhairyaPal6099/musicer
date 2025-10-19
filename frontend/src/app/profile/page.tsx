@@ -36,6 +36,9 @@ import ArtistSelector from "@/components/ui/artistselector"
 import ProfilePicture from "@/components/ui/profilepicture"
 import { useTheme } from "@/hooks/useTheme"
 
+// Public variables (prefix with NEXT_PUBLIC_)
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const instruments = [
   {
     id: "guitar",
@@ -145,7 +148,7 @@ export default function Profile() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       // Sending to backend
-      const response = await fetch("http://localhost:8000/profile", {
+      const response = await fetch(`${apiUrl}/profile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
