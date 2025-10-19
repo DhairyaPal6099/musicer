@@ -6,6 +6,13 @@ from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from pydantic import BaseModel
 from typing import List, Dict, Optional
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 # SQLAlchemy model (database)
 class ProfileDB(Base):
@@ -51,7 +58,7 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[FRONTEND_URL],
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods including OPTIONS, POST, GET, etc.
     allow_headers=["*"],
